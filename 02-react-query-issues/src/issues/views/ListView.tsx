@@ -8,7 +8,7 @@ export const ListView = () => {
         <IssueList />
       </div>
 
-      <div className="col-span-1 px-2">
+      <div className="col-span-1 px-2 flex flex-wrap gap-2">
         <LabelPicker />
       </div>
     </div>

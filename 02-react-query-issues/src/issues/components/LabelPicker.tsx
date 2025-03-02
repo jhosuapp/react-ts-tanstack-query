@@ -1,15 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { sleep } from "../../helpers/sleep";
-
-const getLabels = async():Promise<unknown[]> => {
-
-  await sleep(100500);
-
-  const response = await fetch('https://api.github.com/repos/facebook/react/labels')
-  .then(res => res.json());
-
-  return response;
-}
+import { getLabels } from "../../actions";
 
 export const LabelPicker = ():JSX.Element => {
 
@@ -18,18 +8,26 @@ export const LabelPicker = ():JSX.Element => {
     queryFn: getLabels
   });
 
+  console.log(data);
+
   if(isFetching){
     return <p className="text-center w-full h-[100px] flex items-center justify-center">Loading...</p>
   }
 
+  if(!data){
+    return <p className="text-center w-full h-[100px] flex items-center justify-center">there are no labels</p>
+  }
+
   return (
     <>
-      <span
-        className="px-2 py-1 rounded-full text-xs font-semibold hover:bg-slate-800 cursor-pointer"
-        style={{ border: `1px solid #ffccd3`, color: '#ffccd3' }}
-      >
-        Primary
-      </span>
+      {data.map(( { name, color } )=>(
+        <span
+          className="px-2 py-1 rounded-full font-semibold hover:bg-slate-800 cursor-pointer"
+          style={{ border: `1px solid #${color}`, color: `#${color}` }}
+        >
+          { name }
+        </span>
+      ))}
     </>
   );
 };
