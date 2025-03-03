@@ -1,1 +1,2 @@
-export * from './github.action';
+export * from './get-label.action';
+export * from './get-issue.action';

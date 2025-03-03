@@ -1,6 +1,12 @@
+import { UseIssueQuery } from '../../hooks';
 import { IssueItem } from './IssueItem';
 
 export const IssueList = () => {
+
+  const { issueQuery } = UseIssueQuery();
+
+  console.log(issueQuery.data);
+
   return (
     <>
       {/* Botones de All, Open, Closed */}
