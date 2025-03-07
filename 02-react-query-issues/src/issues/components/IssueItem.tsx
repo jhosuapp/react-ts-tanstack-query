@@ -19,7 +19,7 @@ export const IssueItem = ({ issue }:IssueProps) => {
       
       <div className="flex flex-col flex-grow px-2">
         <a
-          onClick={() => navigate(`/issues/issue/123`)}
+          onClick={() => navigate(`/issues/issue/${ issue.number }`)}
           className="hover:underline"
         >
           {issue.title}
