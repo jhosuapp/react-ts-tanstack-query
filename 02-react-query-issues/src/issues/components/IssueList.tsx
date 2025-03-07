@@ -1,11 +1,11 @@
-import { UseIssueQuery } from '../../hooks';
+import { IssueInterface } from '../../interfaces';
 import { IssueItem } from './IssueItem';
 
-export const IssueList = () => {
+type IssuesProps = {
+  issues: IssueInterface[]
+}
 
-  const { issueQuery } = UseIssueQuery();
-
-  console.log(issueQuery.data);
+export const IssueList = ({ issues }:IssuesProps) => {
 
   return (
     <>
@@ -18,8 +18,8 @@ export const IssueList = () => {
 
       {/* Lista de issues */}
       <div className="mt-4">
-        {[1, 2, 3].map((issue) => (
-          <IssueItem key={issue} />
+        {issues.map((issue) => (
+          <IssueItem key={issue.id} issue={ issue } />
         ))}
       </div>
     </>

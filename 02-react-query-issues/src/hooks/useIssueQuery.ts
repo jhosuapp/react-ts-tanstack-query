@@ -5,6 +5,7 @@ const UseIssueQuery = () => {
     const issueQuery = useQuery({
         queryKey: ['issue'],
         queryFn: getIssue,
+        staleTime: 60 * 1000
     });
 
     return {
