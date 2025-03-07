@@ -18,6 +18,7 @@ const UseDetailIssueQuery = (issueNumber: number) => {
         queryKey: ['issueComments', issueDetailQuery.data?.number, '/comments'],
         queryFn: ({ queryKey }) => getCommentsIssue(queryKey[1] as number),
         retry: false,
+        staleTime: 1000 * 60,
         enabled: issueDetailQuery.data !== undefined
     });
 

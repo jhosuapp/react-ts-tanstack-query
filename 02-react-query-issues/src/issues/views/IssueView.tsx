@@ -11,8 +11,6 @@ export const IssueView = () => {
   //Request
   const { issueDetailQuery, issueCommentsQuery } = UseDetailIssueQuery(issueNumber);
 
-  console.log(issueCommentsQuery.data);
-
   if(issueDetailQuery.isLoading){
     return <p>Cargando issue</p>
   }
