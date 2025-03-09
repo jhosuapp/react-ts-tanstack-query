@@ -1,7 +1,12 @@
 import { useLabelQuery } from "../../hooks";
 import { Loader } from "../../shared";
 
-export const LabelPicker = ():JSX.Element => {
+interface LabelPickerProps {
+  onSelectedLabels: (label: string) => void;
+  selectedLabels: string[]
+}
+
+export const LabelPicker = ({ onSelectedLabels, selectedLabels }: LabelPickerProps):JSX.Element => {
 
   const { labelQuery } = useLabelQuery(); 
 
@@ -18,8 +23,9 @@ export const LabelPicker = ():JSX.Element => {
       {labelQuery.data.map(( { name, color } )=>(
         <span
           key={name}
-          className="px-2 py-1 animate-fadeIn rounded-full font-semibold hover:bg-slate-800 cursor-pointer"
-          style={{ border: `1px solid #${color}`, color: `#${color}` }}
+          className={`px-2 py-1 animate-fadeIn rounded-full font-semibold hover:bg-slate-800 cursor-pointer ${selectedLabels.includes(name) && 'selected-label'}`}
+          style={{ border: `1px solid #${color}` }}
+          onClick={ ()=> onSelectedLabels(name) }
         >
           { name }
         </span>

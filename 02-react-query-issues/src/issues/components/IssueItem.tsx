@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { IssueInterface, State } from '../../interfaces';
 import { useQueryClient } from '@tanstack/react-query';
 import { getCommentsIssue, getDetailIssue } from '../../actions';
+import { timeSince } from '../../helpers';
 
 type IssueProps = {
   issue: IssueInterface;
@@ -32,6 +33,8 @@ export const IssueItem = ({ issue }:IssueProps) => {
     });
   }
 
+  console.log(issue.labels);
+
   return (
     <div 
       onMouseEnter={ presetData }
@@ -51,9 +54,22 @@ export const IssueItem = ({ issue }:IssueProps) => {
           {issue.title}
         </a>
         <span className="text-gray-500">
-          #{ issue.number } opened 2 days ago by{' '}
+          #{ issue.number } opened {timeSince(issue.created_at)} ago by{' '}
           <span className="font-bold">{ issue.user.login }</span>
         </span>
+        <div className='flex flex-wrap gap-2 mt-2'>
+          {
+            issue.labels.map(({name, id, color})=>(
+              <span 
+                key={id}
+                className='px-2 py-1 text-xs text-white rounded-md'
+                style={{ border: `1px solid #${color}` }}
+              >
+                { name }
+              </span>
+            ))
+          }
+        </div>
       </div>
 
       <img
