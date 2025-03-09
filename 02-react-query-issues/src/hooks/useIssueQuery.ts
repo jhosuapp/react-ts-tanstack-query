@@ -1,12 +1,18 @@
 import { useQuery } from "@tanstack/react-query"
 import { getIssue } from "../actions";
+import { State } from "../interfaces";
 
-const UseIssueQuery = () => {
+interface Props {
+    state: State;
+}
+
+const UseIssueQuery = ({ state }:Props) => {
     const issueQuery = useQuery({
-        queryKey: ['issue'],
-        queryFn: getIssue,
+        queryKey: ['issue', { state }],
+        queryFn:  ()=> getIssue(state),
         staleTime: 60 * 1000,
-        refetchOnWindowFocus: true
+        refetchOnWindowFocus: true,
+        retry: false
     });
 
     return {

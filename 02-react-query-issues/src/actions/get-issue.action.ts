@@ -1,8 +1,17 @@
 import { githubApi } from "../api"
-import { IssueInterface } from "../interfaces";
+import { IssueInterface, State } from "../interfaces";
 
-const getIssue = async ():Promise<IssueInterface[]> => {
-    const { data } = await githubApi.get<IssueInterface[]>('/issues');
+const getIssue = async (state: State):Promise<IssueInterface[]> => {
+
+    const params = new URLSearchParams();
+
+    if(state !== State.All){
+        params.append('state', state)
+    }
+
+    const { data } = await githubApi.get<IssueInterface[]>('/issues',{
+        params
+    });
 
     return data;
 }
