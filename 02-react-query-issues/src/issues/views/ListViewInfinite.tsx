@@ -17,7 +17,7 @@ export const ListViewInfinite = () => {
     selectedLabels,
   });
 
-  const issues = issueQuery.data ?? [];
+  const issues = issueQuery?.data?.pages.flat() ?? [];
 
   const onSelectedLabels = (label: string) => {
       if(selectedLabels.includes(label)){
@@ -36,8 +36,16 @@ export const ListViewInfinite = () => {
           <div className='flex flex-col justify-center w-full'>
             <IssueList issues={ issues }  state={ state } setState={ setState } />
 
-              <button className='p-2 bg-blue-500 rounded-md hover:bg-blue-800 transition-all'>
-                Cargar más...
+              <button 
+                onClick={ ()=> issueQuery.fetchNextPage() }
+                disabled={ issueQuery.isFetchingNextPage }
+                className='p-2 bg-blue-500 rounded-md hover:bg-blue-800 transition-all'
+              >
+                {issueQuery.isFetchingNextPage ? 
+                  'Cargando más elementos'
+                  : 
+                  'Cargar más'
+                }
               </button>
           </div>
         )}

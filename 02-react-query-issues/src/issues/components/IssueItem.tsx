@@ -33,8 +33,6 @@ export const IssueItem = ({ issue }:IssueProps) => {
     });
   }
 
-  console.log(issue.labels);
-
   return (
     <div 
       onMouseEnter={ presetData }
